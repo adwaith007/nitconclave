@@ -66,7 +66,7 @@ projectRouter.get('/:id', function (req, res) {
                 let flag=!req.user.isStudent;
                 if(req.user._id.toString()==project.owner._id.toString()) flag=false;
 
-                project.funders.forEach(funder => {
+                project.fundProp.forEach(funder => {
                     if(funder.owner._id.toString()==req.user._id.toString()){
                         flag=false;
                     }
@@ -205,7 +205,7 @@ projectRouter.post('/:id/fund', function (req, res) {
                     res.json({ success: false });
                 }
                 else {
-                    res.redirect('/project/'+req.params.id);
+                    res.redirect('/projects/'+req.params.id);
                 }
             })
         }
@@ -223,40 +223,46 @@ projectRouter.post("/:id/acceptProp/:userid", function (req, res) {
             res.json({ success: false });
         }
         else {
-            User.findById(req.params.userid, function (err, user) {
-                if (err || !user) {
-                    console.log("Error or User with the given id does not exist.");
-                    res.json({ success: false });
-                }
-                else {
-
-                }
-                let flag = false;
-                let amt = 0;
-                project.fundProp = project.fundProp.filter(freq => {
-                    if (freq.owner.toString() == req.params.userid) {
-                        flag = true;
-                        amt = freq.amount;
+                User.findById(req.params.userid, function (err, user) {
+                    if (err || !user) {
+                        console.log("Error or User with the given id does not exist.");
+                        res.json({ success: false });
                     }
-                    return freq.owner.toString() != req.params.userid;
-                })
-                if (!flag) {
-                    res.json({ success: false });
-                }
-                else {
-                    project.funders.push(user._id);
-                    project.fundRecv += amt;
-                    project.save(function (err) {
-                        if (err) {
-                            console.log("Error in saving updated project");
-                            res.json({ success: false });
+                    else {
+                        let flag = false, flag2=true;
+                    let amt = 0;
+                    project.fundProp = project.fundProp.filter(freq => {
+                        if (freq.owner.toString() == req.params.userid) {
+                            flag = true;
+                            amt = freq.amount;
                         }
-                        else {
-                            res.redirect(`/projects/${req.params.id}/manage`);
+                        return freq.owner.toString() != req.params.userid;
+                    })
+                    project.funders.forEach(funder=>{
+                        if(funder.toString()==req.params.userid){
+                            flag2=false;
                         }
                     })
+                    if (!flag) {
+                        res.json({ success: false });
+                    }
+                    else {
+                        if(flag2){
+                            project.funders.push(user._id);
+                        }
+                        project.fundRecv += amt;
+                        project.save(function (err) {
+                            if (err) {
+                                console.log("Error in saving updated project");
+                                res.json({ success: false });
+                            }
+                            else {
+                                res.redirect(`/projects/${req.params.id}/manage`);
+                            }
+                        })
+                    }
                 }
-
+                
             })
         }
     })
