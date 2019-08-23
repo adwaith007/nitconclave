@@ -12,7 +12,6 @@ var express = require("express"),
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(`mongodb://${config.DB_SERVER}/${config.DB_NAME}`);
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(require("express-session")({
     secret: config.SESSION_SECRET,
