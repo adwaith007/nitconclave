@@ -50,13 +50,22 @@ problemRouter.get('/', function (req, res) {
 })
 
 problemRouter.get('/:id', function (req, res) {
-    Problem.findById(req.params.id, function (err, problem) {
+    Problem.findById(req.params.id)
+            .populate('owner')
+            .populate('proposal.owner')
+            .exec(function(err, problem){
         if (err || !problem) {
             console.log("Error or Project with the given id does not exists.");
-            res.json({ success: false });
+            res.json({ success: false});
         }
         else {
-            res.json({ success: true, problem: problem });
+            let flag=true;
+            if(req.user._id.toString()==problem.owner._id.toString()) flag=false;
+            
+            problem.proposal.forEach(proposal => {
+                if(proposal.owner._id.toString()==req.user._id.toString()) flag=false;
+            });
+            res.render('problems/show-problem', { problem: problem, showForm: flag });
         }
     })
 })
@@ -82,7 +91,7 @@ problemRouter.post('/:id/propose', function (req, res) {
                     res.json({ success: false });
                 }
                 else {
-                    res.json({ success: true });
+                    res.redirect('/problems/'+problem._id);
                 }
             })
         }
