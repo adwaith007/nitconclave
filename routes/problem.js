@@ -26,7 +26,7 @@ problemRouter.post('/create', isLoggedIn, function (req, res) {
                 res.json({success: false});
             }
             else{
-                res.json({ success: true });
+                res.redirect('/problems');
             }
         })
 
@@ -34,13 +34,17 @@ problemRouter.post('/create', isLoggedIn, function (req, res) {
 
 })
 
+problemRouter.get('/new', async (req, res) => {
+    res.render('problems/new-problem');
+})
+
 problemRouter.get('/', function (req, res) {
-    Problem.find({}).exec(function (err, problems) {
+    Problem.find({}).populate('owner').exec(function (err, problems) {
         if (err) {
             res.json({ success: false });
         }
         else {
-            res.json({ success: true, problemList: problems });
+            res.render('problems/list-problems',{problems});
         }
     })
 })

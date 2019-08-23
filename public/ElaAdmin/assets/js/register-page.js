@@ -16,6 +16,10 @@ const studentFieldsMarkup = `
 <label>Year of study</label>
 <input type="number" class="form-control" placeholder="Year" name="year" max="5">
 </div>
+<div class="row form-group">
+<div class="col col-md-12"><label for="file-input" class=" form-control-label">Upload Resume</label></div>
+<div class="col-12 col-md-12"><input type="file" id="file-input" name="file" class="form-control-file"></div>
+</div>
 `;
 
 const studentCheckboxHandler = (e) => {

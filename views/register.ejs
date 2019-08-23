@@ -42,7 +42,7 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    <form action="/register" method="POST">
+                    <form action="/register" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>User Name</label>
                             <input type="text" class="form-control" placeholder="User Name" name="username">
@@ -64,6 +64,7 @@
                             <label>Mobile number</label>
                             <input type="text" class="form-control" placeholder="Mobile Number" name="mobile">
                         </div>
+
                         <div id="studentFields">
                         </div>
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
