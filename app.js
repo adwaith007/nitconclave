@@ -31,9 +31,6 @@ app.use((req, res, next) => {
 })
 
 
-app.get('/', (req, res) => {
-    res.render('home');
-})
 app.use(routes);
 
 app.use(express.static(__dirname + "/public/ElaAdmin"));
