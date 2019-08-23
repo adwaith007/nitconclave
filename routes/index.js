@@ -10,7 +10,7 @@ indexRouter.get('/',isLoggedIn, (req, res) => {
 })
 
 indexRouter.use('/', authRouter);
-indexRouter.use('/projects', projectRouter);
-indexRouter.use('/problems', problemRouter);
+indexRouter.use('/projects',isLoggedIn, projectRouter);
+indexRouter.use('/problems',isLoggedIn, problemRouter);
 
 module.exports = indexRouter;

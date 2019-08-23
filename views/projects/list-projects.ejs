@@ -1,0 +1,42 @@
+<%include ../partials/header%>
+<div class="card text-center">
+    <h1 class="display-4 p-3">Projects</h1>
+</div>
+
+<div class="row">
+    <%projects.forEach(project=>{%>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header user-header alt bg-dark">
+                    <div class="media">
+                        <div class="media-body">
+                            <h2 class="text-light display-6 text-center"><%=project.name%></h2>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span class="ti-user"></span> Created by : <%=project.owner.username%>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa fa-users"></i> Collaborators count : <%=project.members.length%> 
+                    </li>
+                    <li class="list-group-item">
+                    <i class="fa fa-money"></i> Funds received : <%=project.fundRecv%> (in INR)
+                    </li>
+                    <li class="list-group-item">
+                        <%if(project.isPublic){%>
+                            <i class="fa fa-volume-up"></i>&nbsp; Public discussion
+                        <%}else{%>
+                            <i class="fa fa-volume-off"></i>&nbsp; Private discussion
+                        <%}%>
+                    </li>
+                    <li class="list-group-item text-center">
+                        <a href="/projects/<%=project._id%>" class="btn btn-primary">View more</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <%})%>
+</div>
+<%include ../partials/footer%>

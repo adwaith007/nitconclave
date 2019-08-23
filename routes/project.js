@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 const { isLoggedIn } = require('../middlewares/auth');
 
 projectRouter.post('/create', isLoggedIn, function (req, res) {
-
     if (
         !req.body.isPublic ||
         !req.body.desc ||
@@ -16,7 +15,7 @@ projectRouter.post('/create', isLoggedIn, function (req, res) {
     }
     else {
         var project = new Project();
-        project.isPublic = req.body.isPublic;
+        project.isPublic = (req.body.isPublic=="true");
         project.owner = req.user._id;
         project.desc = req.body.desc;
         project.name = req.body.name;
@@ -27,26 +26,27 @@ projectRouter.post('/create', isLoggedIn, function (req, res) {
 
         project.fundRecv = 0;
         project.members.push(req.user._id);
-        project.save(function (err) {
-            res.json({ success: true });
+        project.save(function (err, newProject) {
+            res.redirect('/projects');
         })
 
     }
 
 })
 
-projectRouter.get('/new',async (req,res)=>{
+projectRouter.get('/new', async (req, res) => {
     res.render('projects/new-project');
 })
 
 
 projectRouter.get('/', function (req, res) {
-    Project.find({}).exec(function (err, projects) {
+    Project.find({}).populate('owner').exec(function (err, projects) {
         if (err) {
+            console.log("TCL: err", err)
             res.json({ success: false });
         }
         else {
-            res.json({ success: true, projectList: projects });
+            res.render('projects/list-projects',{projects});
         }
     })
 })
