@@ -63,7 +63,15 @@ projectRouter.get('/:id', function (req, res) {
                 res.json({ success: false });
             }
             else {
-                res.render('projects/show-project', { project });
+                let flag=!req.user.isStudent;
+                if(req.user._id.toString()==project.owner._id.toString()) flag=false;
+
+                project.funders.forEach(funder => {
+                    if(funder.owner._id.toString()==req.user._id.toString()){
+                        flag=false;
+                    }
+                });
+                res.render('projects/show-project', { project: project, showFund: flag});
             }
         })
 })
@@ -190,13 +198,14 @@ projectRouter.post('/:id/fund', function (req, res) {
             fundObj.amount = req.body.amount;
             fundObj.desc = req.body.desc;
             project.fundProp.push(fundObj);
+
             project.save(function (err) {
                 if (err) {
                     console.log("Error in saving project");
                     res.json({ success: false });
                 }
                 else {
-                    res.json({ success: true });
+                    res.redirect('/project/'+req.params.id);
                 }
             })
         }
