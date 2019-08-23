@@ -30,12 +30,13 @@ app.use((req, res, next) => {
     next();
 })
 
+app.get('/',(req,res)=>{
+    res.render('home');
+})
 app.use(routes);
 
-app.use((req,res,next)=>{
-    console.log(req.user);
-    return next();
-})
+app.use(express.static(__dirname+"/public/ElaAdmin"));
+app.use(express.static(__dirname+"/public"));
 
 app.listen(config.PORT, () => {
     console.log(`Server has started on ${config.PORT}`);
