@@ -12,7 +12,7 @@ var express = require("express"),
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(`mongodb://${config.DB_SERVER}/${config.DB_NAME}`);
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(require("express-session")({
     secret: config.SESSION_SECRET,
@@ -30,13 +30,14 @@ app.use((req, res, next) => {
     next();
 })
 
-app.get('/',(req,res)=>{
+
+app.get('/', (req, res) => {
     res.render('home');
 })
 app.use(routes);
 
-app.use(express.static(__dirname+"/public/ElaAdmin"));
-app.use(express.static(__dirname+"/public"));
+app.use(express.static(__dirname + "/public/ElaAdmin"));
+app.use(express.static(__dirname + "/public"));
 
 app.listen(config.PORT, () => {
     console.log(`Server has started on ${config.PORT}`);

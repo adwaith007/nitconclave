@@ -10,7 +10,14 @@ authRouter.get("/register",(req,res)=>{
 //=====REGISTER USER=======
 
 authRouter.post("/register",(req,res)=>{
-	User.register(new User({username:req.body.username}),req.body.password,(err,newUser)=>{
+	User.register(new User({
+		username:req.body.username,
+		college:req.body.college,
+		year:req.body.year,
+		branch:req.body.branch,
+		mobile:req.body.mobile,
+		isStudent:(req.body.isStudent=="true"),
+	}),req.body.password,(err,newUser)=>{
 		if (err) {
 			console.log(err)
 			return res.redirect("/register")
