@@ -100,26 +100,28 @@ projectRouter.post("/:id/accept/:userid", function (req, res) {
                     console.log("Error or User with the given id does not exist.");
                     res.json({ success: false });
                 }
-
-                let flag=false;
-                project.requests=project.requests.filter(preq => {
-                    flag=(flag||(preq.toString()==req.params.userid));
-                    return preq.toString()!=req.params.userid;
-                })
-                if(!flag){
-                    res.json({success: false});
-                }
                 else{
-                    project.members.push(user._id);
-                    project.save(function(err){
-                        if(err){
-                            console.log("Error in saving updated project");
-                            res.json({success: false});
-                        }
-                        else {
-                            res.json({success: true});
-                        }
+                    let flag=false;
+                    project.requests=project.requests.filter(preq => {
+                        flag=(flag||(preq.toString()==req.params.userid));
+                        return preq.toString()!=req.params.userid;
                     })
+                    if(!flag){
+                        console.log("No request by passed userid");
+                        res.json({success: false});
+                    }
+                    else{
+                        project.members.push(user._id);
+                        project.save(function(err){
+                            if(err){
+                                console.log("Error in saving updated project");
+                                res.json({success: false});
+                            }
+                            else {
+                                res.json({success: true});
+                            }
+                        })
+                    }
                 }
             })
         }
@@ -167,6 +169,9 @@ projectRouter.post("/:id/acceptProp/:userid", function(req, res){
                     console.log("Error or User with the given id does not exist.");
                     res.json({success:false});
                 }
+                else{
+
+                }
                 let flag=false;
                 let amt=0;
                 project.fundProp=project.fundProp.filter(freq => {
@@ -174,7 +179,7 @@ projectRouter.post("/:id/acceptProp/:userid", function(req, res){
                         flag=true;
                         amt=freq.amount;
                     }
-                    return preq.toString()!=req.params.userid;
+                    return freq.owner.toString()!=req.params.userid;
                 })
                 if(!flag){
                     res.json({success: false});
@@ -199,7 +204,7 @@ projectRouter.post("/:id/acceptProp/:userid", function(req, res){
 })
 
 projectRouter.post('/:id/comment', function(req, res){
-    Project.findById(req.body.id, function(err, project){
+    Project.findById(req.params.id, function(err, project){
         if(err||!project){
             console.log("Error or Project not found");
             res.json({success: false});
