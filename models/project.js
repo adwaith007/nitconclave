@@ -11,7 +11,7 @@ var projectSchema = new Schema({
     tags: [String],
     desc: String,
     name: String,
-    fundResc: Number,
+    fundRecv: Number,
     funders: [{type: Schema.Types.ObjectId, ref: "User"}],
     requests: [{type: Schema.Types.ObjectId, ref: "User"}],
     fundProp: [{
