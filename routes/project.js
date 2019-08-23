@@ -82,7 +82,7 @@ projectRouter.post('/:id/request', function (req, res) {
                     res.json({ success: false });
                 }
                 else {
-                    res.json({ success: true });
+                    res.redirect(`/projects/${req.params.id}`);
                 }
             })
         }
@@ -123,7 +123,7 @@ projectRouter.post("/:id/accept/:userid", function (req, res) {
                                 res.json({ success: false });
                             }
                             else {
-                                res.json({ success: true });
+                                res.redirect(`/projects/${req.params.id}/manage`);
                             }
                         })
                     }
@@ -132,6 +132,51 @@ projectRouter.post("/:id/accept/:userid", function (req, res) {
         }
     })
 })
+
+
+projectRouter.post("/:id/reject/:userid", function (req, res) {
+    Project.findById(req.params.id, function (err, project) {
+        if (err || !project) {
+            console.log("Error or Project with the given id does not exists.");
+            res.json({ success: false });
+        }
+        else if (req.user._id.toString() != project.owner.toString()) {
+            console.log("Request not made by owner of the project.");
+            res.json({ success: false });
+        }
+        else {
+            User.findById(req.params.userid, function (err, user) {
+                if (err || !user) {
+                    console.log("Error or User with the given id does not exist.");
+                    res.json({ success: false });
+                }
+                else {
+                    let flag = false;
+                    project.requests = project.requests.filter(preq => {
+                        flag = (flag || (preq.toString() == req.params.userid));
+                        return preq.toString() != req.params.userid;
+                    })
+                    if (!flag) {
+                        console.log("No request by passed userid");
+                        res.json({ success: false });
+                    }
+                    else {
+                        project.save(function (err) {
+                            if (err) {
+                                console.log("Error in saving updated project");
+                                res.json({ success: false });
+                            }
+                            else {
+                                res.redirect(`/projects/${req.params.id}/manage`);
+                            }
+                        })
+                    }
+                }
+            })
+        }
+    })
+})
+
 
 projectRouter.post('/:id/fund', function (req, res) {
     Project.findById(req.params.id, function (err, project) {
@@ -234,7 +279,7 @@ projectRouter.post('/:id/comment', function (req, res) {
 
 projectRouter.get('/:id/manage', async (req, res) => {
     try {
-        let project = await Project.findById(req.params.id).exec();
+        let project = await Project.findById(req.params.id).populate('requests').populate('members').exec();
         res.render('projects/manage-project', { project });
     } catch (error) {
         res.json({error});
