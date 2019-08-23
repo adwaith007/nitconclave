@@ -22,6 +22,7 @@ authRouter.post("/register",(req,res)=>{
 			res.redirect("/register");
 		}
 		else{
+			const resume = (req.body.isStudent=="true")?("/"+req.file.path.toString()):null;
 			User.register(new User({
 				username:req.body.username,
 				college:req.body.college,
@@ -29,7 +30,7 @@ authRouter.post("/register",(req,res)=>{
 				branch:req.body.branch,
 				mobile:req.body.mobile,
 				isStudent:(req.body.isStudent=="true"),
-				resume: "/"+req.file.path.toString()
+				resume,
 			}),req.body.password,(err,newUser)=>{
 				if (err) {
 					console.log(err)

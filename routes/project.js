@@ -243,7 +243,7 @@ projectRouter.post("/:id/acceptProp/:userid", function (req, res) {
                             res.json({ success: false });
                         }
                         else {
-                            res.json({ success: true });
+                            res.redirect(`/projects/${req.params.id}/manage`);
                         }
                     })
                 }
@@ -279,7 +279,11 @@ projectRouter.post('/:id/comment', function (req, res) {
 
 projectRouter.get('/:id/manage', async (req, res) => {
     try {
-        let project = await Project.findById(req.params.id).populate('requests').populate('members').exec();
+        let project = await Project.findById(req.params.id)
+            .populate('requests')
+            .populate('members')
+            .populate('fundProp.owner')
+            .exec();
         res.render('projects/manage-project', { project });
     } catch (error) {
         res.json({error});
