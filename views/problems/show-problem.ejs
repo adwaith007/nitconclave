@@ -5,7 +5,7 @@
     <div class="card-body">
             <h1 class="display-4 text-center"><%=problem.name%></h1>
             <%if(currentUser._id.toString()==problem.owner._id.toString()){%>
-                <div style="width: 100%" class="text-center p-4"><a href="/problem/<%=problem._id%>/manage" class="text-light btn btn-primary"><i class="fa fa-cogs pr-2"></i>Proposals</a></div>
+                <div style="width: 100%" class="text-center p-4"><a href="/problems/<%=problem._id%>/manage" class="text-light btn btn-primary"><i class="fa fa-cogs pr-2"></i>Proposals</a></div>
             <%}%>
         <div>
             <h2 class="display-5 pb-4">Description :</h2>

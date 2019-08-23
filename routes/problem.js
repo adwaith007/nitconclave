@@ -133,7 +133,7 @@ problemRouter.post("/:id/acceptpropose/:userid", function (req, res) {
                                 res.json({success: false});
                             }
                             else {
-                                res.json({success: true});
+                                res.redirect('/problems/'+problem._id);
                             }
                         })
                     }
@@ -143,5 +143,17 @@ problemRouter.post("/:id/acceptpropose/:userid", function (req, res) {
     })
 })
 
+problemRouter.get('/:id/manage', async (req, res) => {
+    try {
+        let problem = await Problem.findById(req.params.id)
+            .populate('owner')
+            .populate('allotedTo')
+            .populate('proposal.owner')
+            .exec();
+        res.render('problems/manage-problem', { problem });
+    } catch (error) {
+        res.json({error});
+    }
+})
 
 module.exports = problemRouter;
