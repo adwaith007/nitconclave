@@ -3,6 +3,7 @@
     <!-- <div class="text-center card-header">
     </div> -->
     <div class="card-body">
+            <div style="width: 100%;" class="text-center"><span class="badge badge-success"><i class="fa fa-check"></i> Solved</span></div>
             <h1 class="display-4 text-center"><%=problem.name%></h1>
             <%if(currentUser._id.toString()==problem.owner._id.toString()&&!problem.allotedTo){%>
                 <div style="width: 100%" class="text-center p-4"><a href="/problems/<%=problem._id%>/manage" class="text-light btn btn-primary"><i class="fa fa-cogs pr-2"></i>Proposals</a></div>
@@ -57,7 +58,7 @@
                     </div>
                     <div class="stat-content">
                         <div class="text-left dib">
-                            <div class="stat-text"><span class="couant"><%=problem.owner.username%></span></div>
+                            <div class="stat-text"><span class="couant"><a href="/users/<%=problem.owner._id%>"><%=problem.owner.username%></a></span></div>
                             <div class="stat-heading">Owner</div>
                         </div>
                     </div>
@@ -74,7 +75,7 @@
                     </div>
                     <div class="stat-content">
                         <div class="text-left dib">
-                            <div class="stat-text"><span class="couant"><%= problem.allotedTo?problem.allotedTo.username:"NA" %></span></div>
+                            <div class="stat-text"><span class="couant"><%- problem.allotedTo?`<a href="/users/${problem.allotedTo._id}">${problem.allotedTo.username}</a>`:"NA" %></span></div>
                             <div class="stat-heading">Assignee</div>
                         </div>
                     </div>
