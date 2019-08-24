@@ -136,7 +136,7 @@ problemRouter.post("/:id/acceptpropose/:userid", function (req, res) {
                         res.json({success: false});
                     }
                     else{
-                        problem.allotedTo=req.user;
+                        problem.allotedTo=req.params.userid;
                         problem.proposal=[];
                         problem.save(function(err){
                             if(err){
