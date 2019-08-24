@@ -19,7 +19,7 @@ userRouter.get('/', isLoggedIn, async (req, res) => {
     }]).exec();
     [problemCount, projectCount, userCount, fundsTransfered, completedProblemCount] = await Promise.all([problemCount, projectCount, userCount, fundsTransfered,completedProblemCount]);
 
-    res.render('home', { problemCount, projectCount, userCount, fundsTransfered: fundsTransfered[0].total, completedProblemCount });
+    res.render('home', { problemCount, projectCount, userCount, fundsTransfered: fundsTransfered.length?fundsTransfered[0].total:0, completedProblemCount });
 })
 
 module.exports = userRouter;
