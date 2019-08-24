@@ -95,8 +95,10 @@
                     <li>
                         <a href="/users/<%=currentUser._id%>"> <i class="menu-icon ti-user"></i>Profile </a>
                     </li>
-                    <li class="text-center mt-2 user-info"><a href="#">Name : <%=currentUser.username%></a></li>
+
+                    <li class="text-center mt-2 user-info"><a href="#">Name : <%=currentUser.username.toUpperCase()%></a></li>
                     <li class="text-center mt-2 user-info"><a href="#"><%=currentUser.isStudent?"Student":"Industrialist"%></a></li>
+                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

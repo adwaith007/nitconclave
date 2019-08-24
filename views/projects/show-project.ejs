@@ -172,7 +172,7 @@
                             comment</button>
                     </form>
                     <%project.thread.forEach(comment=>{%>
-                    <div class="jumbotron mt-3 mb-3" style="padding: 2rem 1rem;">
+                    <div class="jumbotron mt-3 mb-3 alt bg-dark" style="padding: 2rem 1rem; color: white;">
                         <strong><%=comment.owner.username%></strong>: <%=comment.message%>
                     </div>
                     <%})%>
