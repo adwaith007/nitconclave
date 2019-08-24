@@ -1,11 +1,13 @@
 <%include ./partials/header%>
 <div class="card card-body">
     <h1 class="text-center display-2"><%=user.username%></h1>
-    <div class="jumbotron text-center p-2 ml-auto mr-auto" style="width: 50%;">
-        <p style="font-size: 1.2rem;">College: <%=user.college%></p>
-        <p style="font-size: 1.2rem;">Branch: <%=user.branch%></p>
-        <p style="font-size: 1.2rem;">Year of study: <%=user.year%></p>
-    </div>
+    <ul class="list-group ml-auto mr-auto text-center pb-4" style="width: 50%;">
+        <li class="list-group-item" style="font-size: 1.2rem;">College: <%=user.college%></li>
+        <li class="list-group-item" style="font-size: 1.2rem;">Branch: <%=user.branch%></li>
+        <li class="list-group-item" style="font-size: 1.2rem;">Year of study: <%=user.year%></li>
+    </ul>
+    <%user.resume = user.resume.substring(1)%>
+    <a href="/<%=user.resume.substring(user.resume.indexOf('/') + 1)%>" class="btn btn-primary btn-lg ml-auto mr-auto" style="width: 30%;"><i class="fa fa-paper"></i>View Resume</a>
 </div>
 <div class="row">
     <div class="col-md-6">
