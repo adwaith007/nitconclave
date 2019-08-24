@@ -44,7 +44,17 @@ problemRouter.get('/', function (req, res) {
             res.json({ success: false });
         }
         else {
-            res.render('problems/list-problems',{problems});
+            let completed=[], uncompleted=[];
+            problems.forEach(problem=>{
+                if(problem.allotedTo){
+                    completed.push(problem);
+                }
+                else{
+                    uncompleted.push(problem);
+                }
+            });
+
+            res.render('problems/list-problems',{completed, uncompleted});
         }
     })
 })
@@ -53,6 +63,7 @@ problemRouter.get('/:id', function (req, res) {
     Problem.findById(req.params.id)
             .populate('owner')
             .populate('proposal.owner')
+            .populate('allotedTo')
             .exec(function(err, problem){
         if (err || !problem) {
             console.log("Error or Project with the given id does not exists.");

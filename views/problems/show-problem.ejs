@@ -4,7 +4,7 @@
     </div> -->
     <div class="card-body">
             <h1 class="display-4 text-center"><%=problem.name%></h1>
-            <%if(currentUser._id.toString()==problem.owner._id.toString()){%>
+            <%if(currentUser._id.toString()==problem.owner._id.toString()&&!problem.allotedTo){%>
                 <div style="width: 100%" class="text-center p-4"><a href="/problems/<%=problem._id%>/manage" class="text-light btn btn-primary"><i class="fa fa-cogs pr-2"></i>Proposals</a></div>
             <%}%>
         <div>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="stat-content">
                         <div class="text-left dib">
-                            <div class="stat-text"><span class="couant"><%= problem.assignedTo?problem.assignedTo.username:"NA" %></span></div>
+                            <div class="stat-text"><span class="couant"><%= problem.allotedTo?problem.allotedTo.username:"NA" %></span></div>
                             <div class="stat-heading">Assignee</div>
                         </div>
                     </div>
