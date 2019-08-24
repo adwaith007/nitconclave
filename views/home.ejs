@@ -1,3 +1,160 @@
 <%include partials/header%>
-Home
+<span style="display: none;" id="hidden-pieValueCompleted"><%=completedProblemCount%></span>
+<span style="display: none;" id="hidden-pieValueNotCompleted"><%=problemCount - completedProblemCount%></span>
+<div class="animated fadeIn">
+    <!-- Widgets  -->
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-1">
+                            <i class="pe-7s-cash"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text">₹<span class="count"><%=fundsTransfered%></span></div>
+                                <div class="stat-heading">Funds transfered</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-2">
+                            <i class="pe-7s-note2"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count"><%=projectCount%></span></div>
+                                <div class="stat-heading">Projects</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-3">
+                            <i class="pe-7s-browser"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count"><%=problemCount%></span></div>
+                                <div class="stat-heading">Problems</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-4">
+                            <i class="pe-7s-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count"><%=userCount%></span></div>
+                                <div class="stat-heading">Users</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Widgets -->
+    <!--  Traffic  -->
+    <div class="row text-center">
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-3">Problem statements </h4>
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-body">
+                    <h3 class="text-center p-3">Explore</h3>
+                    <a class="btn btn-primary btn-block btn-lg" href="/projects">Student created projects</a>
+                    <h3 class="text-center p-3">Or</h3>
+                    <a class="btn btn-primary btn-block btn-lg" href="/problems">Industry problem statements</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="box-title">Traffic </h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card-body">
+                            <!-- <canvas id="TrafficChart"></canvas>   -->
+                            <div id="traffic-chart" class="traffic-chart" style="height: 300px"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card-body">
+                            <div class="progress-box progress-1">
+                                <h4 class="por-title">Visits</h4>
+                                <div class="por-txt">96,930 Users (40%)</div>
+                                <div class="progress mb-2" style="height: 5px;">
+                                    <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;"
+                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="progress-box progress-2">
+                                <h4 class="por-title">Bounce Rate</h4>
+                                <div class="por-txt">3,220 Users (24%)</div>
+                                <div class="progress mb-2" style="height: 5px;">
+                                    <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;"
+                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="progress-box progress-2">
+                                <h4 class="por-title">Unique Visitors</h4>
+                                <div class="por-txt">29,658 Users (60%)</div>
+                                <div class="progress mb-2" style="height: 5px;">
+                                    <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;"
+                                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="progress-box progress-2">
+                                <h4 class="por-title">Targeted Visitors</h4>
+                                <div class="por-txt">99,658 Users (90%)</div>
+                                <div class="progress mb-2" style="height: 5px;">
+                                    <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;"
+                                        aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div> <!-- /.card-body -->
+                    </div>
+                </div> <!-- /.row -->
+                <div class="card-body"></div>
+            </div>
+        </div><!-- /# column -->
+    </div>
+</div>
 <%include partials/footer%>
