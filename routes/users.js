@@ -8,7 +8,7 @@ userRouter.get('/:id', function(req, res){
             console.log("Error in finding user");
         }
         else{
-            res.json({success: true, user: user});
+            res.render('show-user',{user});
         }
     })
 })

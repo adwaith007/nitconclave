@@ -1,0 +1,48 @@
+<%include ./partials/header%>
+<div class="card card-body">
+    <h1 class="text-center display-2"><%=user.username%></h1>
+    <div class="jumbotron text-center p-2 ml-auto mr-auto" style="width: 50%;">
+        <p style="font-size: 1.2rem;">College: <%=user.college%></p>
+        <p style="font-size: 1.2rem;">Branch: <%=user.branch%></p>
+        <p style="font-size: 1.2rem;">Year of study: <%=user.year%></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="stat-widget-five">
+                    <div class="stat-icon dib flat-color-3">
+                        <i class="pe-7s-browser"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="text-left dib">
+                            <div class="stat-text"><span class="count"><%=projectsOwned%></span></div>
+                            <div class="stat-heading">Projects created</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="stat-widget-five">
+                    <div class="stat-icon dib flat-color-3">
+                        <i class="pe-7s-browser"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="text-left dib">
+                            <div class="stat-text"><span class="count"><%=projectsPartOf%></span></div>
+                            <div class="stat-heading">Projects part of</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<%include ./partials/footer%>
