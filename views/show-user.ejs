@@ -6,8 +6,10 @@
         <li class="list-group-item" style="font-size: 1.2rem;">Branch: <%=user.branch%></li>
         <li class="list-group-item" style="font-size: 1.2rem;">Year of study: <%=user.year%></li>
     </ul>
-    <%user.resume = user.resume.substring(1)%>
-    <a href="/<%=user.resume.substring(user.resume.indexOf('/') + 1)%>" class="btn btn-primary btn-lg ml-auto mr-auto" style="width: 30%;"><i class="fa fa-paper"></i>View Resume</a>
+    <%if(user.resume){%>
+        <%user.resume = user.resume.substring(1)%>
+        <a href="/<%=user.resume.substring(user.resume.indexOf('/') + 1)%>" class="btn btn-primary btn-lg ml-auto mr-auto" style="width: 30%;"><i class="fa fa-paper"></i>View Resume</a>
+    <%}%>
 </div>
 <div class="row">
     <div class="col-md-6">
